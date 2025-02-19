@@ -4,7 +4,13 @@
     { "src": "frontend/index.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/transcription", "dest": "api.py" },
-    { "src": "/", "dest": "/frontend/index.html" }
+    {
+      "src": "/transcription(.*)",
+      "dest": "/api.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/index.html"
+    }
   ]
 }
