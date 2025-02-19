@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transcrição de Vídeo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        input, button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        textarea {
-            width: 80%;
-            height: 200px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcrição de Vídeo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    textarea {
+      width: 80%;
+      height: 200px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <h2>Transcrição de Vídeo do YouTube</h2>
-    <input type="text" id="videoUrl" placeholder="Cole a URL do vídeo aqui">
-    <button onclick="getTranscription()">Obter Transcrição</button>
-    
-    <h3>Resultado:</h3>
-    <textarea id="transcription" readonly></textarea>
+  <h2>Transcrição de Vídeo do YouTube</h2>
+  <input type="text" id="videoUrl" placeholder="Cole a URL do vídeo aqui">
+  <button onclick="getTranscription()">Obter Transcrição</button>
+  
+  <h3>Resultado:</h3>
+  <textarea id="transcription" readonly></textarea>
 
-    <script>
-        async function getTranscription() {
-            const url = document.getElementById("videoUrl").value;
-            if (!url) {
-                alert("Por favor, insira um link do YouTube.");
-                return;
-            }
+  <script>
+    async function getTranscription() {
+      const url = document.getElementById("videoUrl").value;
+      if (!url) {
+        alert("Por favor, insira um link do YouTube.");
+        return;
+      }
 
-            try {
-                const response = await fetch(`/transcription/?url=${encodeURIComponent(url)}`);
-                
-                if (!response.ok) {
-                    alert("Erro ao obter a transcrição. Verifique a URL e tente novamente.");
-                    return;
-                }
-
-                const data = await response.json();
-                document.getElementById("transcription").value = data.transcription;
-            } catch (error) {
-                alert("Erro ao conectar com o servidor.");
-            }
+      try {
+        const response = await fetch(`/transcription/?url=${encodeURIComponent(url)}`);
+        
+        if (!response.ok) {
+          alert("Erro ao obter a transcrição. Verifique a URL e tente novamente.");
+          return;
         }
-    </script>
+
+        const data = await response.json();
+        document.getElementById("transcription").value = data.transcription;
+      } catch (error) {
+        alert("Erro ao conectar com o servidor.");
+      }
+    }
+  </script>
 </body>
 </html>
