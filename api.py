@@ -28,11 +28,11 @@ async def get_transcription(url: str):
         raise HTTPException(status_code=400, detail="URL inválida!")
 
     try:
-        # Primeiro, tenta pegar as legendas manuais
+        # Tenta pegar as legendas manuais com idiomas 'pt' e 'en'
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt', 'en'])
     except (TranscriptsDisabled, NoTranscriptFound):
         try:
-            # Se não houver legendas manuais, tenta pegar legendas automáticas
+            # Se não houver legendas manuais, tenta pegar legendas automáticas (em inglês)
             transcript = YouTubeTranscriptApi.list_transcripts(video_id).find_generated_transcript(['en']).fetch()
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Erro ao obter a transcrição: {str(e)}")
