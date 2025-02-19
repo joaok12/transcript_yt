@@ -5,7 +5,7 @@ import re
 
 app = FastAPI()
 
-# Configurar CORS para permitir chamadas do frontend
+# Permitir chamadas do frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -28,11 +28,11 @@ async def get_transcription(url: str):
         raise HTTPException(status_code=400, detail="URL inválida!")
 
     try:
-        # Tenta pegar legendas manuais primeiro
+        # Primeiro, tenta pegar as legendas manuais
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
     except (TranscriptsDisabled, NoTranscriptFound):
         try:
-            # Se não houver legendas manuais, tenta buscar legendas automáticas
+            # Se não houver legendas manuais, tenta pegar legendas automáticas
             transcript = YouTubeTranscriptApi.list_transcripts(video_id).find_generated_transcript(['en']).fetch()
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Erro ao obter a transcrição: {str(e)}")
