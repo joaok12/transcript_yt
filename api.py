@@ -28,7 +28,7 @@ async def get_transcription(url: str):
         raise HTTPException(status_code=400, detail="URL inválida!")
     
     try:
-        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt', 'en'])
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
         text = " ".join([t["text"] for t in transcript])
         return {"transcription": text}
     except Exception as e:
