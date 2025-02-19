@@ -29,7 +29,7 @@ async def get_transcription(url: str):
 
     try:
         # Primeiro, tenta pegar as legendas manuais
-        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+        transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['pt', 'en'])
     except (TranscriptsDisabled, NoTranscriptFound):
         try:
             # Se não houver legendas manuais, tenta pegar legendas automáticas
